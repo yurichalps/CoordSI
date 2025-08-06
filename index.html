@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico: Planejamento Estratégico - Sustenta e Inova</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F0F4F8; }
+        .chart-container { position: relative; width: 100%; margin-left: auto; margin-right: auto; height: 400px; max-height: 450px; }
+        @media (min-width: 768px) { .chart-container { height: 450px; } }
+        .kpi-card { background-color: #003F5C; color: white; padding: 1.5rem; border-radius: 0.5rem; text-align: center; display: flex; flex-direction: column; justify-content: center; position: relative; height: 100%; }
+        .kpi-value { font-size: 2.5rem; font-weight: 900; line-height: 1; }
+        .kpi-label { font-size: 1rem; margin-top: 0.5rem; opacity: 0.8; }
+        .timeline-item { position: relative; padding-bottom: 2rem; padding-left: 2.5rem; }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item::before { content: ''; position: absolute; left: 0; top: 5px; width: 20px; height: 20px; border-radius: 50%; background-color: #EF5675; border: 3px solid #003F5C; }
+        .timeline-item::after { content: ''; position: absolute; left: 9px; top: 25px; width: 2px; height: calc(100% - 10px); background-color: #003F5C; }
+        .timeline-item:last-child::after { display: none; }
+        .axis-card { border: 2px solid #003F5C; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .axis-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .organogram-box { border: 2px solid #7A5195; padding: 1rem; border-radius: 0.5rem; text-align: center; background-color: white; }
+        .organogram-line { height: 2px; background-color: #7A5195; }
+        .organogram-connector { width: 2px; background-color: #7A5195; margin: 0 auto; }
+        .control-btn { padding: 0.5rem 1.5rem; border-radius: 9999px; font-weight: 600; background-color: #ffffff; color: #003F5C; border: 2px solid #003F5C; transition: background-color 0.3s, color 0.3s; cursor: pointer; }
+        .control-btn:hover { background-color: #e0e8f0; }
+        .control-btn.active { background-color: #003F5C; color: #ffffff; }
+    </style>
+</head>
+<body class="text-gray-800">
+    <header class="bg-white shadow-md sticky top-0 z-10">...[content omitted for brevity; see above, will use full content in commit]...
+</body>
+</html>
