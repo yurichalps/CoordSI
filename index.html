@@ -146,6 +146,10 @@
                     <h3 class="font-bold text-xl text-[#003F5C]">Compromisso Crítico com o Financiador (UE)</h3>
                     <p class="text-lg mt-2">É imperativo demonstrar os resultados e as transformações alcançadas com <strong>evidências robustas</strong>. Esta é a base para garantir a segurança técnica e administrativa da coordenação, cumprindo nossa principal responsabilidade contratual.</p>
                 </div>
+                 <div class="mt-6 bg-purple-50 border-l-4 border-[#7A5195] p-4 rounded-r-lg">
+                    <h3 class="font-bold text-xl text-[#003F5C]">Foco da Coordenação até o Encerramento</h3>
+                    <p class="text-lg mt-2">Nossa prioridade na reta final não é a geração de novas entregas, mas a <strong>organização e sistematização dos resultados já alcançados</strong>. O desafio é transformar o volume de informações em evidências claras do impacto do projeto na região. Este é um trabalho estratégico e intenso, fundamental para construir e comunicar nosso legado, e não deve ser percebido como uma redução no ritmo de trabalho.</p>
+                </div>
             </div>
         </section>
 
@@ -413,7 +417,344 @@
     </footer>
 
     <script>
-        // ... script content omitted for brevity, will use full script in the file push ...
+        Chart.register(ChartDataLabels);
+
+        const formatCurrency = (value, currency = 'EUR') => new Intl.NumberFormat('de-DE', { style: 'currency', currency: currency }).format(value);
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        const defaultChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            family: 'Inter',
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    bodyFont: {
+                        family: 'Inter',
+                    },
+                    titleFont: {
+                        family: 'Inter',
+                    }
+                }
+            }
+        };
+
+        const palette = {
+            blue: '#003F5C',
+            purple: '#7A5195',
+            pink: '#EF5675',
+            orange: '#FF764A',
+            yellow: '#FFA600',
+            lightBlue: '#374C80',
+            magenta: '#BC5090',
+        };
+
+        const execucaoGeralData = {
+            labels: ['Executado', 'Saldo a Executar'],
+            datasets: [{
+                label: 'Execução Financeira',
+                data: [44.17, 55.83],
+                backgroundColor: [palette.pink, palette.blue],
+                borderColor: '#ffffff',
+                borderWidth: 2
+            }],
+            orcamentoTotal: 1658574.06,
+            valorExecutado: 732579.27,
+            valorSaldo: 925994.79
+        };
+
+        new Chart(document.getElementById('execucaoGeralChart'), {
+            type: 'doughnut',
+            data: execucaoGeralData,
+            options: {
+                ...defaultChartOptions,
+                plugins: {
+                    ...defaultChartOptions.plugins,
+                    datalabels: {
+                        formatter: (value, context) => {
+                            return value.toFixed(2) + '%';
+                        },
+                        color: '#fff',
+                        font: {
+                            weight: 'bold',
+                            size: 16,
+                        }
+                    },
+                    tooltip: {
+                        ...defaultChartOptions.plugins.tooltip,
+                        callbacks: {
+                            ...defaultChartOptions.plugins.tooltip.callbacks,
+                            label: function(context) {
+                                const label = context.label || '';
+                                const percent = context.parsed;
+                                return `${label}: ${percent.toFixed(2)}%`;
+                            },
+                            afterBody: function(context) {
+                                const chartData = context[0].chart.data;
+                                return [
+                                    `Orçamento Total: ${formatCurrency(chartData.orcamentoTotal)}`,
+                                    `Executado: ${formatCurrency(chartData.valorExecutado)}`,
+                                    `Saldo: ${formatCurrency(chartData.valorSaldo)}`
+                                ];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const rubricasData = {
+            labels: [
+                'Soluções Empreende Amazônia', 'Conferências/Seminários', 'Assessor Técnico',
+                'Ações de Visibilidade', 'Custos Indiretos', 'Soluções NISA', 'Transporte Local',
+                'Diárias Pessoal', 'Auditoria/Verificação', 'Custos de Avaliação', 'Aluguel de Veículos',
+                'Publicações', 'Serviços Financeiros', 'Consultoria Monitoramento', 'Custos Veículos',
+            ],
+            percentual: [38.99, 45.89, 51.39, 52.69, 27.47, 39.29, 46.16, 45.53, 16.54, 2.00, 27.57, 7.04, 41.88, 100.00, 1.23],
+            orcado: [528000.00, 197727.25, 194700.00, 187677.05, 108332.43, 112500.00, 90000.00, 66357.04, 30035.89, 24000.00, 25000.00, 5500.00, 1375.00, 78369.40, 9000.00],
+            executado: [205888.87, 90746.24, 100052.89, 98877.78, 29760.63, 44197.65, 41540.21, 30210.47, 4968.42, 480.00, 6892.31, 387.44, 575.91, 78369.40, 111.05]
+        };
+
+        new Chart(document.getElementById('execucaoRubricasChart'), {
+            type: 'bar',
+            data: {
+                labels: rubricasData.labels,
+                datasets: [{
+                    label: '% Execução',
+                    data: rubricasData.percentual,
+                    backgroundColor: palette.purple,
+                    borderColor: palette.lightBlue,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...defaultChartOptions,
+                indexAxis: 'y',
+                scales: {
+                    x: { beginAtZero: true, max: 100, title: { display: true, text: '% Execução' } }
+                },
+                plugins: {
+                    ...defaultChartOptions.plugins,
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'end',
+                        formatter: (value) => value.toFixed(2) + '%',
+                        color: '#333',
+                        font: {
+                            weight: 'bold'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback,
+                            label: function(context) {
+                                return `% Execução: ${context.parsed.x.toFixed(2)}%`;
+                            },
+                            afterBody: function(context) {
+                                const i = context[0].dataIndex;
+                                const orcado = rubricasData.orcado[i];
+                                const executado = rubricasData.executado[i];
+                                return [
+                                    `Orçado: ${formatCurrency(orcado)}`,
+                                    `Executado: ${formatCurrency(executado)}`
+                                ];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        const territoriosData = {
+            labels: ['Xingu', 'Marajó I', 'Capim', 'Marajó II'],
+            orcado: [436605.00, 169697.00, 429083.00, 276145.00],
+            executado: [144731.26, 53428.00, 67550.00, 37443.60],
+            percentual: [33, 31, 16, 14]
+        };
+
+        new Chart(document.getElementById('execucaoTerritoriosChart'), {
+            type: 'bar',
+            data: {
+                labels: territoriosData.labels,
+                datasets: [
+                    {
+                        label: 'Valor Disponível (R$)',
+                        data: territoriosData.orcado,
+                        backgroundColor: palette.lightBlue,
+                    },
+                    {
+                        label: 'Valor Executado (R$)',
+                        data: territoriosData.executado,
+                        backgroundColor: palette.pink,
+                    }
+                ]
+            },
+            options: {
+                ...defaultChartOptions,
+                 scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'R$ ' + (value / 1000) + 'k';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    datalabels: {
+                        anchor: 'center',
+                        align: 'center',
+                        formatter: (value) => Math.round(value / 1000) + 'k',
+                        color: (context) => context.datasetIndex === 0 ? 'white' : 'black',
+                        font: {
+                            weight: 'bold'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed.y);
+                                }
+                                return label;
+                            },
+                            afterBody: function(context) {
+                                const dataIndex = context[0].dataIndex;
+                                const percent = territoriosData.percentual[dataIndex];
+                                return `Execução: ${percent}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const entregasData = {
+            '1': {
+                title: 'Eixo 1: Garantindo a Governança e o Alinhamento',
+                color: 'text-[#003F5C]',
+                deliveries: [
+                    { name: 'Reuniões de Comitê Diretivo', what: 'Decisões de alto nível para garantir o alinhamento e o compromisso de todos os parceiros.', why: 'São a instância máxima de governança do projeto.', strategy: 'Realização de duas reuniões chave: Ago/2025 (foco COP-30) e Jun/2026 (foco alinhamentos finais).' },
+                    { name: 'Avaliações Externas', what: 'Análises independentes sobre a execução e os resultados do projeto.', why: 'Fornecem uma visão externa para correção de rota e são uma exigência contratual.', strategy: 'Análise da Intermediária (Ago/2025) para aprimorar a reta final e contratação da Final (Out/2026) para a prestação de contas.' },
+                    { name: 'Ciclo de Visitas de Monitoramento', what: 'Visitas contínuas (simples e robustas) aos territórios.', why: 'Conecta a coordenação à realidade do campo, permitindo ajustes e a coleta de insumos.', strategy: 'Cronograma bimestral, alternando equipes para otimizar o acompanhamento técnico, operacional e de comunicação.' }
+                ]
+            },
+            '2': {
+                title: 'Eixo 2: Construindo a Memória do Projeto com Segurança',
+                color: 'text-[#374C80]',
+                deliveries: [
+                    { name: 'Repositório de Evidências', what: 'Nossa "fonte da verdade" digital para comprovar cada resultado alcançado.', why: 'É a base para todos os relatórios, auditoria e avaliação final. Garante a segurança da coordenação.', strategy: 'Força-tarefa contínua com pontos de checagem de progresso (50% em Mar/26, 80% em Mai/26, 100% em Ago/26).' },
+                    { name: 'Metodologia para Indicadores Qualitativos', what: 'Desenvolvimento de um método para mensurar indicadores não definidos no quadro lógico.', why: 'Permite capturar e apresentar transformações de forma robusta e crível.', strategy: 'Desenvolvimento e validação interna até Set/2025.' },
+                    { name: 'Validação Final com Parceiros', what: 'Processo formal de "acordo" sobre os números e resultados finais com cada parceiro.', why: 'Evita divergências no relatório final e garante o alinhamento institucional.', strategy: 'Reuniões bilaterais em Set-Out/2026, após o repositório estar 100% completo.' }
+                ]
+            },
+            '3': {
+                title: 'Eixo 3: Contando Nossa História de Transformação',
+                color: 'text-[#7A5195]',
+                deliveries: [
+                    { name: 'Books de Resultados', what: 'As publicações que contam a história do projeto e seus impactos.', why: 'São a principal ferramenta para comunicar o sucesso do projeto ao público e ao financiador.', strategy: 'Duas entregas: Versão 2025 (Dez/2025) com foco em aprendizados e Versão Final (Out/2026) consolidando os 5 anos do projeto.' },
+                    { name: 'Materiais de Legado', what: 'Um pacote de materiais de alto impacto (vídeo-manifesto, infográficos).', why: 'Cria peças duradouras que servem como o "cartão de visita" do legado do projeto.', strategy: 'Produção em Set-Out/2026 para lançamento no Evento de Encerramento.' }
+                ]
+            },
+            '4': {
+                title: 'Eixo 4: Criando Momentos de Conexão e Visibilidade',
+                color: 'text-[#BC5090]',
+                deliveries: [
+                    { name: 'I Academies (Xingu e Capim)', what: 'Eventos territoriais de imersão e capacitação com temáticas locais.', why: 'Aprofundam o conhecimento técnico e fortalecem as redes de atores locais.', strategy: 'Realização entre Set/2025 e Out/2025.' },
+                    { name: 'Participação na COP-30', what: 'Participação estratégica do projeto na Conferência do Clima em Belém.', why: 'Oportunidade única de visibilidade internacional e posicionamento do projeto.', strategy: 'Execução em Nov/2025, com base no plano validado pelo Comitê Diretivo.' },
+                    { name: 'II Academy (Belém)', what: 'Grande evento de integração com representantes de todos os territórios.', why: 'Consolida os saberes, promove a troca de experiências e celebra os resultados.', strategy: 'Realização em Mar/2026, funcionando como um seminário de consolidação.' },
+                    { name: 'Evento de Encerramento', what: 'O marco final do projeto, para apresentar os resultados finais a todos os públicos.', why: 'É o rito de passagem que encerra as atividades e lança o legado do projeto.', strategy: 'Evento institucional e celebrativo em Nov/2026 para lançar as publicações finais.' }
+                ]
+            },
+            '5': {
+                title: 'Eixo 5: Garantindo a Conformidade e o Encerramento Contratual',
+                color: 'text-[#EF5675]',
+                deliveries: [
+                    { name: 'Relatórios Intercalares 2025', what: 'Prestação de contas técnica, financeira e de auditoria referente a 2025.', why: 'Requisito contratual para solicitar novos recursos e principal responsabilidade da coordenação.', strategy: 'Esforço concentrado da equipe para submissão formal em Set/2025.' },
+                    { name: 'Relatórios Finais (Técnico, Financeiro e Auditoria)', what: 'O conjunto de documentos obrigatórios para o fechamento do contrato com a UE.', why: 'Comprovam a correta execução do projeto e são condição para o reembolso final.', strategy: 'Dedicação exclusiva da coordenação de Jan a Mar/2027 para uma elaboração segura e eficiente.' }
+                ]
+            },
+             '6': {
+                title: 'Eixo 6: A Execução na Ponta',
+                color: 'text-[#FF764A]',
+                deliveries: [
+                    { name: 'Atualização Final dos Planos de Trabalho', what: 'A última grande revisão e ajuste dos planos de trabalho de cada território.', why: 'Garante que a execução na reta final esteja 100% alinhada aos objetivos de encerramento.', strategy: 'Processo de co-criação entre Agências e Coordenação, com finalização em Ago/2025.' },
+                    { name: 'Execução Técnico-Operacional Contínua', what: 'A realização das oficinas, consultorias e atendimentos que levam o projeto aos beneficiários.', why: 'É a atividade fim que gera o impacto direto do projeto.', strategy: 'Acompanhamento contínuo pela coordenação e reporte pelas agências.' },
+                    { name: 'Articulação Contínua com Parceiros', what: 'A gestão do relacionamento e da parceria com IPAM, CIRAD e Embrapa no nível local.', why: 'Fortalece o ecossistema e a sustentabilidade das ações.', strategy: 'Reuniões periódicas e alinhamento constante.' },
+                    { name: 'Apresentação Periódica de Resultados', what: 'O processo de reporte que alimenta o monitoramento e o repositório de evidências.', why: 'Essencial para a gestão, transparência e prestação de contas.', strategy: 'Fluxo de comunicação definido entre agências e coordenação.' }
+                ]
+            }
+        };
+
+        const deliveryContainer = document.getElementById('delivery-details-content');
+        const controlButtons = document.querySelectorAll('#mergulho-profundo-controls .control-btn');
+
+        function displayAxisDetails(axisId) {
+            const axisData = entregasData[axisId];
+            if (!axisData) return;
+
+            let contentHtml = `<h3 class="text-2xl font-bold mb-6 ${axisData.color}">${axisData.title}</h3>`;
+            contentHtml += '<div class="space-y-6">';
+
+            axisData.deliveries.forEach(delivery => {
+                contentHtml += `
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h4 class="text-xl font-bold text-gray-800">${delivery.name}</h4>
+                        <div class="mt-4 space-y-3 text-gray-700">
+                            <p><strong>O que é?</strong> ${delivery.what}</p>
+                            <p><strong>Por que é crucial?</strong> ${delivery.why}</p>
+                            <p><strong>Estratégia:</strong> ${delivery.strategy}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            contentHtml += '</div>';
+            deliveryContainer.innerHTML = contentHtml;
+
+            controlButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.dataset.axis === axisId) {
+                    button.classList.add('active');
+                }
+            });
+        }
+
+        controlButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                displayAxisDetails(button.dataset.axis);
+            });
+        });
+
+        displayAxisDetails('1');
+        document.querySelector('#mergulho-profundo-controls .control-btn[data-axis="1"]').classList.add('active');
+
     </script>
 </body>
 </html>
