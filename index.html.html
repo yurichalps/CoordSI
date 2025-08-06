@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico: Planejamento Estratégico - Sustenta e Inova</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F4F8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 450px;
+            }
+        }
+        .kpi-card {
+            background-color: #003F5C;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            height: 100%;
+        }
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+        .kpi-label {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 2.5rem;
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #EF5675;
+            border: 3px solid #003F5C;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 25px;
+            width: 2px;
+            height: calc(100% - 10px);
+            background-color: #003F5C;
+        }
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        .axis-card {
+            border: 2px solid #003F5C;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .axis-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .organogram-box {
+            border: 2px solid #7A5195;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            background-color: white;
+        }
+        .organogram-line {
+            height: 2px;
+            background-color: #7A5195;
+        }
+        .organogram-connector {
+            width: 2px;
+            background-color: #7A5195;
+            margin: 0 auto;
+        }
+        .control-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            background-color: #ffffff;
+            color: #003F5C;
+            border: 2px solid #003F5C;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+        .control-btn:hover {
+            background-color: #e0e8f0;
+        }
+        .control-btn.active {
+            background-color: #003F5C;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-[#003F5C]">Planejamento Estratégico de Encerramento</h1>
+                <p class="text-lg text-[#7A5195]">Projeto Sustenta e Inova | Julho 2025 - Março 2027</p>
+            </div>
+            <img src="https://i.imgur.com/weBoCNn.jpeg" alt="Logo Sustenta e Inova" class="h-16">
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section id="contexto" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#003F5C] mb-4">O Cenário da Reta Final: Foco e Clareza</h2>
+                <p class="text-lg mb-6">Navegamos a fase de encerramento com uma missão clara: utilizar a prorrogação de 18 meses como uma janela de oportunidade para consolidar o legado do projeto, e não apenas para executar atividades restantes. Este período é crucial para responder a um cenário externo desafiador, com eventos como a COP-30 e as eleições de 2026 impactando a agenda institucional.</p>
+                <div class="mt-6 bg-blue-50 border-l-4 border-[#EF5675] p-4 rounded-r-lg">
+                    <h3 class="font-bold text-xl text-[#003F5C]">Compromisso Crítico com o Financiador (UE)</h3>
+                    <p class="text-lg mt-2">É imperativo demonstrar os resultados e as transformações alcançadas com <strong>evidências robustas</strong>. Esta é a base para garantir a segurança técnica e administrativa da coordenação, cumprindo nossa principal responsabilidade contratual.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="financeiro" class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-[#003F5C] mb-8">O Panorama Financeiro Estratégico</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="relative group">
+                    <div class="kpi-card">
+                        <span class="kpi-value">44,17%</span>
+                        <span class="kpi-label">Execução Financeira Geral (Sebrae/PA)</span>
+                    </div>
+                    <div class="absolute bottom-full mb-2 w-max p-2 text-sm bg-gray-800 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none left-1/2 -translate-x-1/2 z-20">
+                        Execução total: € 732.579,27<br>Orçamento total: € 1.658.574,06
+                    </div>
+                </div>
+                <div class="relative group">
+                    <div class="kpi-card bg-[#7A5195]">
+                        <span class="kpi-value">R$ 5,5M</span>
+                        <span class="kpi-label">Saldo Total Estimado a Executar</span>
+                    </div>
+                     <div class="absolute bottom-full mb-2 w-max p-2 text-sm bg-gray-800 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none left-1/2 -translate-x-1/2 z-20">
+                        Valor em euros: € 925.994,79<br>% do total: 55,83%
+                    </div>
+                </div>
+                <div class="relative group">
+                    <div class="kpi-card bg-[#EF5675]">
+                        <span class="kpi-value">R$ 1,6M</span>
+                        <span class="kpi-label">Repasse final a solicitar</span>
+                    </div>
+                    <div class="absolute bottom-full mb-2 w-max p-2 text-sm bg-gray-800 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none left-1/2 -translate-x-1/2 z-20">
+                        Valor em euros: € 270.821,84<br>% do total: 16,33%
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-center mb-4">Execução vs. Saldo Orçamentário</h3>
+                    <p class="text-center text-gray-600 mb-4">A visualização mostra que mais da metade do orçamento ainda está disponível, representando uma grande oportunidade estratégica.</p>
+                    <div class="chart-container mx-auto max-w-sm">
+                        <canvas id="execucaoGeralChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-center mb-4">Execução por Rubrica Orçamentária</h3>
+                    <p class="text-center text-gray-600 mb-4">A análise por rubrica revela onde estão as maiores concentrações de saldo, orientando o remanejamento estratégico de recursos.</p>
+                    <div class="chart-container">
+                        <canvas id="execucaoRubricasChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="territorios" class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-[#003F5C] mb-8">O Desafio Central: Acelerar a Execução nos Territórios</h2>
+             <p class="text-lg text-center max-w-4xl mx-auto mb-8">A baixa execução financeira pelas agências nos territórios é nosso principal desafio. Apenas R$ 293 mil de R$ 1,23 milhão disponíveis foram utilizados. Isso representa uma oportunidade de direcionar o saldo para ações de alto impacto, como fortalecer a narrativa do projeto e apoiar iniciativas estratégicas.</p>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                 <h3 class="text-xl font-bold text-center mb-4">Execução por Agência (Disponível vs. Executado)</h3>
+                <div class="chart-container mx-auto max-w-4xl">
+                    <canvas id="execucaoTerritoriosChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="plano" class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-[#003F5C] mb-8">Nossa Estratégia: Os 6 Eixos de Atuação</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="axis-card bg-white rounded-lg p-6 text-center">
+                    <div class="text-4xl font-black text-[#003F5C]">1</div>
+                    <h3 class="text-xl font-bold mt-2">Gestão Estratégica</h3>
+                    <p class="mt-2 text-gray-600">Governança, alinhamento com parceiros e monitoramento do projeto.</p>
+                </div>
+                <div class="axis-card bg-white rounded-lg p-6 text-center">
+                    <div class="text-4xl font-black text-[#374C80]">2</div>
+                    <h3 class="text-xl font-bold mt-2">Consolidação de Resultados</h3>
+                    <p class="mt-2 text-gray-600">Criação da "memória do projeto" com evidências concretas.</p>
+                </div>
+                <div class="axis-card bg-white rounded-lg p-6 text-center">
+                    <div class="text-4xl font-black text-[#7A5195]">3</div>
+                    <h3 class="text-xl font-bold mt-2">Narrativa de Impacto</h3>
+                    <p class="mt-2 text-gray-600">Contar nossa história de transformação de forma poderosa.</p>
+                </div>
+                <div class="axis-card bg-white rounded-lg p-6 text-center">
+                    <div class="text-4xl font-black text-[#BC5090]">4</div>
+                    <h3 class="text-xl font-bold mt-2">Eventos Marco</h3>
+                    <p class="mt-2 text-gray-600">Momentos-chave de mobilização, conhecimento e visibilidade.</p>
+                </div>
+                <div class="axis-card bg-white rounded-lg p-6 text-center">
+                    <div class="text-4xl font-black text-[#EF5675]">5</div>
+                    <h3 class="text-xl font-bold mt-2">Gestão Admin/Fin</h3>
+                    <p class="mt-2 text-gray-600">Garantia da conformidade e do encerramento contratual.</p>
+                </div>
+                <div class="axis-card bg-white rounded-lg p-6 text-center">
+                    <div class="text-4xl font-black text-[#FF764A]">6</div>
+                    <h3 class="text-xl font-bold mt-2">Execução nos Territórios</h3>
+                    <p class="mt-2 text-gray-600">Ação na ponta, liderada pelas Agências Regionais.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="equipe" class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-[#003F5C] mb-8">Nossa Força-Tarefa e Responsabilidades</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-center mb-6">Estrutura da Equipe</h3>
+                    <div class="space-y-4">
+                        <div class="organogram-box">
+                            <h4 class="font-bold text-lg text-[#7A5195]">Núcleo da Coordenação (Dedicado)</h4>
+                            <p>Paula C., Lorena A., Valéria M., R10/Yuri L.</p>
+                        </div>
+                        <div class="organogram-connector h-4"></div>
+                        <div class="flex justify-center items-center">
+                            <div class="organogram-line w-1/2"></div>
+                             <div class="organogram-connector w-px h-4 -translate-y-2"></div>
+                            <div class="organogram-line w-1/2"></div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-1/2 text-center">
+                                <div class="organogram-connector h-4"></div>
+                                <div class="organogram-box">
+                                    <h4 class="font-bold text-lg text-[#7A5195]">Suporte Estratégico</h4>
+                                    <p>Renata B., Igor B.</p>
+                                </div>
+                            </div>
+                            <div class="w-1/2 text-center">
+                                <div class="organogram-connector h-4"></div>
+                                <div class="organogram-box">
+                                    <h4 class="font-bold text-lg text-[#7A5195]">Execução (Linha de Frente)</h4>
+                                    <p>Equipes das 4 Agências</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold text-center mb-6">Matriz de Responsabilidades por Eixo</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-[#003F5C] text-white">
+                                <tr>
+                                    <th class="p-3">Eixo</th>
+                                    <th class="p-3">Líder</th>
+                                    <th class="p-3">Apoios</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="p-3 font-semibold">1. Gestão Estratégica</td>
+                                    <td class="p-3">Paula</td>
+                                    <td class="p-3">Yuri (R10), Renata</td>
+                                </tr>
+                                <tr class="border-b bg-gray-50">
+                                    <td class="p-3 font-semibold">2. Consolidação de Resultados</td>
+                                    <td class="p-3">Yuri (R10)</td>
+                                    <td class="p-3">Lorena, Paula</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 font-semibold">3. Narrativa de Impacto</td>
+                                    <td class="p-3">Yuri (R10)</td>
+                                    <td class="p-3">Valéria, Paula</td>
+                                </tr>
+                                <tr class="border-b bg-gray-50">
+                                    <td class="p-3 font-semibold">4. Eventos Marco</td>
+                                    <td class="p-3">Paula</td>
+                                    <td class="p-3">Yuri (R10), Lorena, Valéria</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 font-semibold">5. Gestão Admin/Fin</td>
+                                    <td class="p-3">Paula</td>
+                                    <td class="p-3">Lorena, Renata</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="p-3 font-semibold">6. Execução nos Territórios</td>
+                                    <td class="p-3">Agências</td>
+                                    <td class="p-3">Yuri (R10), Paula, Renata</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline" class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-[#003F5C] mb-8">Linha do Tempo: Nossos Marcos até o Fim</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12">
+                <div>
+                    <h3 class="text-2xl font-bold text-[#7A5195] mb-6">2025: Ano de Aceleração e Visibilidade</h3>
+                    <div class="relative">
+                        <div class="timeline-item">
+                            <h4 class="font-bold">Agosto</h4>
+                            <p>Comitê Diretivo (COP-30) e Análise da Avaliação Externa.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-bold">Setembro</h4>
+                            <p>Submissão da PC Intermediária.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-bold">Outubro</h4>
+                            <p>Encontro de gestores Sebrae (em Belém) e visita técnica Xingu.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-bold">Novembro</h4>
+                            <p>Participação estratégica na COP-30.</p>
+                        </div>
+                         <div class="timeline-item">
+                            <h4 class="font-bold">Dezembro</h4>
+                            <p>Publicação do Book de Resultados 2025.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div>
+                    <h3 class="text-2xl font-bold text-[#EF5675] mb-6">2026: Ano de Consolidação e Legado</h3>
+                    <div class="relative">
+                        <div class="timeline-item">
+                            <h4 class="font-bold">Março</h4>
+                            <p>Realização do II Academy (Belém).</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-bold">Junho</h4>
+                            <p>Encontro de Gestão Final.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-bold">Agosto</h4>
+                            <p>Repositório de Evidências 100% Concluído.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 class="font-bold">Outubro</h4>
+                            <p>Publicação do Book Final e Materiais de Legado.</p>
+                        </div>
+                         <div class="timeline-item">
+                            <h4 class="font-bold">Novembro</h4>
+                            <p>Realização do Evento de Encerramento.</p>
+                        </div>
+                         <div class="timeline-item">
+                            <h4 class="font-bold">Dezembro</h4>
+                            <p>Fim da vigência - Preparação PC final (até fevereiro/2027)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mergulho-profundo" class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-[#003F5C] mb-8">Mergulho Profundo nas Entregas</h2>
+            <div id="mergulho-profundo-controls" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+                <button class="control-btn" data-axis="1">Eixo 1</button>
+                <button class="control-btn" data-axis="2">Eixo 2</button>
+                <button class="control-btn" data-axis="3">Eixo 3</button>
+                <button class="control-btn" data-axis="4">Eixo 4</button>
+                <button class="control-btn" data-axis="5">Eixo 5</button>
+                <button class="control-btn" data-axis="6">Eixo 6</button>
+            </div>
+            <div id="delivery-details-content" class="mt-8">
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white mt-12 py-8">
+        <div class="container mx-auto px-8 text-center">
+            <p class="text-xl font-bold mb-6 text-[#003F5C]">"Juntos, vamos transformar estes últimos 18 meses em um legado de sucesso para o Sustenta e Inova e para a Amazônia."</p>
+            <img src="https://i.imgur.com/kmEytDn.jpeg" alt="Barra de Marcas dos Parceiros" class="mx-auto">
+        </div>
+    </footer>
+
+    <script>
+        Chart.register(ChartDataLabels);
+
+        const formatCurrency = (value, currency = 'EUR') => new Intl.NumberFormat('de-DE', { style: 'currency', currency: currency }).format(value);
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        const defaultChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            family: 'Inter',
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    },
+                    bodyFont: {
+                        family: 'Inter',
+                    },
+                    titleFont: {
+                        family: 'Inter',
+                    }
+                }
+            }
+        };
+
+        const palette = {
+            blue: '#003F5C',
+            purple: '#7A5195',
+            pink: '#EF5675',
+            orange: '#FF764A',
+            yellow: '#FFA600',
+            lightBlue: '#374C80',
+            magenta: '#BC5090',
+        };
+
+        const execucaoGeralData = {
+            labels: ['Executado', 'Saldo a Executar'],
+            datasets: [{
+                label: 'Execução Financeira',
+                data: [44.17, 55.83],
+                backgroundColor: [palette.pink, palette.blue],
+                borderColor: '#ffffff',
+                borderWidth: 2
+            }],
+            orcamentoTotal: 1658574.06,
+            valorExecutado: 732579.27,
+            valorSaldo: 925994.79
+        };
+
+        new Chart(document.getElementById('execucaoGeralChart'), {
+            type: 'doughnut',
+            data: execucaoGeralData,
+            options: {
+                ...defaultChartOptions,
+                plugins: {
+                    ...defaultChartOptions.plugins,
+                    datalabels: {
+                        formatter: (value, context) => {
+                            return value.toFixed(2) + '%';
+                        },
+                        color: '#fff',
+                        font: {
+                            weight: 'bold',
+                            size: 16,
+                        }
+                    },
+                    tooltip: {
+                        ...defaultChartOptions.plugins.tooltip,
+                        callbacks: {
+                            ...defaultChartOptions.plugins.tooltip.callbacks,
+                            label: function(context) {
+                                const label = context.label || '';
+                                const percent = context.parsed;
+                                return `${label}: ${percent.toFixed(2)}%`;
+                            },
+                            afterBody: function(context) {
+                                const chartData = context[0].chart.data;
+                                return [
+                                    `Orçamento Total: ${formatCurrency(chartData.orcamentoTotal)}`,
+                                    `Executado: ${formatCurrency(chartData.valorExecutado)}`,
+                                    `Saldo: ${formatCurrency(chartData.valorSaldo)}`
+                                ];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const rubricasData = {
+            labels: [
+                'Soluções Empreende Amazônia', 'Conferências/Seminários', 'Assessor Técnico',
+                'Ações de Visibilidade', 'Custos Indiretos', 'Soluções NISA', 'Transporte Local',
+                'Diárias Pessoal', 'Auditoria/Verificação', 'Custos de Avaliação', 'Aluguel de Veículos',
+                'Publicações', 'Serviços Financeiros', 'Consultoria Monitoramento', 'Custos Veículos',
+            ],
+            percentual: [38.99, 45.89, 51.39, 52.69, 27.47, 39.29, 46.16, 45.53, 16.54, 2.00, 27.57, 7.04, 41.88, 100.00, 1.23],
+            orcado: [528000.00, 197727.25, 194700.00, 187677.05, 108332.43, 112500.00, 90000.00, 66357.04, 30035.89, 24000.00, 25000.00, 5500.00, 1375.00, 78369.40, 9000.00],
+            executado: [205888.87, 90746.24, 100052.89, 98877.78, 29760.63, 44197.65, 41540.21, 30210.47, 4968.42, 480.00, 6892.31, 387.44, 575.91, 78369.40, 111.05]
+        };
+
+        new Chart(document.getElementById('execucaoRubricasChart'), {
+            type: 'bar',
+            data: {
+                labels: rubricasData.labels,
+                datasets: [{
+                    label: '% Execução',
+                    data: rubricasData.percentual,
+                    backgroundColor: palette.purple,
+                    borderColor: palette.lightBlue,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...defaultChartOptions,
+                indexAxis: 'y',
+                scales: {
+                    x: { beginAtZero: true, max: 100, title: { display: true, text: '% Execução' } }
+                },
+                plugins: {
+                    ...defaultChartOptions.plugins,
+                    legend: { display: false },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'end',
+                        formatter: (value) => value.toFixed(2) + '%',
+                        color: '#333',
+                        font: {
+                            weight: 'bold'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback,
+                            label: function(context) {
+                                return `% Execução: ${context.parsed.x.toFixed(2)}%`;
+                            },
+                            afterBody: function(context) {
+                                const i = context[0].dataIndex;
+                                const orcado = rubricasData.orcado[i];
+                                const executado = rubricasData.executado[i];
+                                return [
+                                    `Orçado: ${formatCurrency(orcado)}`,
+                                    `Executado: ${formatCurrency(executado)}`
+                                ];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        const territoriosData = {
+            labels: ['Xingu', 'Marajó I', 'Capim', 'Marajó II'],
+            orcado: [436605.00, 169697.00, 429083.00, 276145.00],
+            executado: [144731.26, 53428.00, 67550.00, 37443.60],
+            percentual: [33, 31, 16, 14]
+        };
+
+        new Chart(document.getElementById('execucaoTerritoriosChart'), {
+            type: 'bar',
+            data: {
+                labels: territoriosData.labels,
+                datasets: [
+                    {
+                        label: 'Valor Disponível (R$)',
+                        data: territoriosData.orcado,
+                        backgroundColor: palette.lightBlue,
+                    },
+                    {
+                        label: 'Valor Executado (R$)',
+                        data: territoriosData.executado,
+                        backgroundColor: palette.pink,
+                    }
+                ]
+            },
+            options: {
+                ...defaultChartOptions,
+                 scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return 'R$ ' + (value / 1000) + 'k';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed.y);
+                                }
+                                return label;
+                            },
+                            afterBody: function(context) {
+                                const dataIndex = context[0].dataIndex;
+                                const percent = territoriosData.percentual[dataIndex];
+                                return `Execução: ${percent}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const entregasData = {
+            '1': {
+                title: 'Eixo 1: Garantindo a Governança e o Alinhamento',
+                color: 'text-[#003F5C]',
+                deliveries: [
+                    { name: 'Reuniões de Comitê Diretivo', what: 'Decisões de alto nível para garantir o alinhamento e o compromisso de todos os parceiros.', why: 'São a instância máxima de governança do projeto.', strategy: 'Realização de duas reuniões chave: Ago/2025 (foco COP-30) e Jun/2026 (foco alinhamentos finais).' },
+                    { name: 'Avaliações Externas', what: 'Análises independentes sobre a execução e os resultados do projeto.', why: 'Fornecem uma visão externa para correção de rota e são uma exigência contratual.', strategy: 'Análise da Intermediária (Ago/2025) para aprimorar a reta final e contratação da Final (Out/2026) para a prestação de contas.' },
+                    { name: 'Ciclo de Visitas de Monitoramento', what: 'Visitas contínuas (simples e robustas) aos territórios.', why: 'Conecta a coordenação à realidade do campo, permitindo ajustes e a coleta de insumos.', strategy: 'Cronograma bimestral, alternando equipes para otimizar o acompanhamento técnico, operacional e de comunicação.' }
+                ]
+            },
+            '2': {
+                title: 'Eixo 2: Construindo a Memória do Projeto com Segurança',
+                color: 'text-[#374C80]',
+                deliveries: [
+                    { name: 'Repositório de Evidências', what: 'Nossa "fonte da verdade" digital para comprovar cada resultado alcançado.', why: 'É a base para todos os relatórios, auditoria e avaliação final. Garante a segurança da coordenação.', strategy: 'Força-tarefa contínua com pontos de checagem de progresso (50% em Mar/26, 80% em Mai/26, 100% em Ago/26).' },
+                    { name: 'Metodologia para Indicadores Qualitativos', what: 'Desenvolvimento de um método para mensurar indicadores não definidos no quadro lógico.', why: 'Permite capturar e apresentar transformações de forma robusta e crível.', strategy: 'Desenvolvimento e validação interna até Set/2025.' },
+                    { name: 'Validação Final com Parceiros', what: 'Processo formal de "acordo" sobre os números e resultados finais com cada parceiro.', why: 'Evita divergências no relatório final e garante o alinhamento institucional.', strategy: 'Reuniões bilaterais em Set-Out/2026, após o repositório estar 100% completo.' }
+                ]
+            },
+            '3': {
+                title: 'Eixo 3: Contando Nossa História de Transformação',
+                color: 'text-[#7A5195]',
+                deliveries: [
+                    { name: 'Books de Resultados', what: 'As publicações que contam a história do projeto e seus impactos.', why: 'São a principal ferramenta para comunicar o sucesso do projeto ao público e ao financiador.', strategy: 'Duas entregas: Versão 2025 (Dez/2025) com foco em aprendizados e Versão Final (Out/2026) consolidando os 5 anos do projeto.' },
+                    { name: 'Materiais de Legado', what: 'Um pacote de materiais de alto impacto (vídeo-manifesto, infográficos).', why: 'Cria peças duradouras que servem como o "cartão de visita" do legado do projeto.', strategy: 'Produção em Set-Out/2026 para lançamento no Evento de Encerramento.' }
+                ]
+            },
+            '4': {
+                title: 'Eixo 4: Criando Momentos de Conexão e Visibilidade',
+                color: 'text-[#BC5090]',
+                deliveries: [
+                    { name: 'I Academies (Xingu e Capim)', what: 'Eventos territoriais de imersão e capacitação com temáticas locais.', why: 'Aprofundam o conhecimento técnico e fortalecem as redes de atores locais.', strategy: 'Realização entre Set/2025 e Out/2025.' },
+                    { name: 'Participação na COP-30', what: 'Participação estratégica do projeto na Conferência do Clima em Belém.', why: 'Oportunidade única de visibilidade internacional e posicionamento do projeto.', strategy: 'Execução em Nov/2025, com base no plano validado pelo Comitê Diretivo.' },
+                    { name: 'II Academy (Belém)', what: 'Grande evento de integração com representantes de todos os territórios.', why: 'Consolida os saberes, promove a troca de experiências e celebra os resultados.', strategy: 'Realização em Mar/2026, funcionando como um seminário de consolidação.' },
+                    { name: 'Evento de Encerramento', what: 'O marco final do projeto, para apresentar os resultados finais a todos os públicos.', why: 'É o rito de passagem que encerra as atividades e lança o legado do projeto.', strategy: 'Evento institucional e celebrativo em Nov/2026 para lançar as publicações finais.' }
+                ]
+            },
+            '5': {
+                title: 'Eixo 5: Garantindo a Conformidade e o Encerramento Contratual',
+                color: 'text-[#EF5675]',
+                deliveries: [
+                    { name: 'Relatórios Intercalares 2025', what: 'Prestação de contas técnica, financeira e de auditoria referente a 2025.', why: 'Requisito contratual para solicitar novos recursos e principal responsabilidade da coordenação.', strategy: 'Esforço concentrado da equipe para submissão formal em Set/2025.' },
+                    { name: 'Relatórios Finais (Técnico, Financeiro e Auditoria)', what: 'O conjunto de documentos obrigatórios para o fechamento do contrato com a UE.', why: 'Comprovam a correta execução do projeto e são condição para o reembolso final.', strategy: 'Dedicação exclusiva da coordenação de Jan a Mar/2027 para uma elaboração segura e eficiente.' }
+                ]
+            },
+             '6': {
+                title: 'Eixo 6: A Execução na Ponta',
+                color: 'text-[#FF764A]',
+                deliveries: [
+                    { name: 'Atualização Final dos Planos de Trabalho', what: 'A última grande revisão e ajuste dos planos de trabalho de cada território.', why: 'Garante que a execução na reta final esteja 100% alinhada aos objetivos de encerramento.', strategy: 'Processo de co-criação entre Agências e Coordenação, com finalização em Ago/2025.' },
+                    { name: 'Execução Técnico-Operacional Contínua', what: 'A realização das oficinas, consultorias e atendimentos que levam o projeto aos beneficiários.', why: 'É a atividade fim que gera o impacto direto do projeto.', strategy: 'Acompanhamento contínuo pela coordenação e reporte pelas agências.' },
+                    { name: 'Articulação Contínua com Parceiros', what: 'A gestão do relacionamento e da parceria com IPAM, CIRAD e Embrapa no nível local.', why: 'Fortalece o ecossistema e a sustentabilidade das ações.', strategy: 'Reuniões periódicas e alinhamento constante.' },
+                    { name: 'Apresentação Periódica de Resultados', what: 'O processo de reporte que alimenta o monitoramento e o repositório de evidências.', why: 'Essencial para a gestão, transparência e prestação de contas.', strategy: 'Fluxo de comunicação definido entre agências e coordenação.' }
+                ]
+            }
+        };
+
+        const deliveryContainer = document.getElementById('delivery-details-content');
+        const controlButtons = document.querySelectorAll('#mergulho-profundo-controls .control-btn');
+
+        function displayAxisDetails(axisId) {
+            const axisData = entregasData[axisId];
+            if (!axisData) return;
+
+            let contentHtml = `<h3 class="text-2xl font-bold mb-6 ${axisData.color}">${axisData.title}</h3>`;
+            contentHtml += '<div class="space-y-6">';
+
+            axisData.deliveries.forEach(delivery => {
+                contentHtml += `
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h4 class="text-xl font-bold text-gray-800">${delivery.name}</h4>
+                        <div class="mt-4 space-y-3 text-gray-700">
+                            <p><strong>O que é?</strong> ${delivery.what}</p>
+                            <p><strong>Por que é crucial?</strong> ${delivery.why}</p>
+                            <p><strong>Estratégia:</strong> ${delivery.strategy}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            contentHtml += '</div>';
+            deliveryContainer.innerHTML = contentHtml;
+
+            controlButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.dataset.axis === axisId) {
+                    button.classList.add('active');
+                }
+            });
+        }
+
+        controlButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                displayAxisDetails(button.dataset.axis);
+            });
+        });
+
+        displayAxisDetails('1');
+        document.querySelector('#mergulho-profundo-controls .control-btn[data-axis="1"]').classList.add('active');
+
+    </script>
+</body>
+</html>
